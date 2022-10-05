@@ -79,7 +79,19 @@ namespace lab1
         }
         public static Address[] insert(Address[] address, MethodInfo method)
         {
-           
+            int j;
+            Address tempAddress;
+            for (int i = 1; i < address.Length; i++)
+            {
+                tempAddress = address[i];
+                j = i;
+                while (j > 0 && Comparer.DefaultInvariant.Compare(method.Invoke(address[j - 1], null), method.Invoke(tempAddress, null)) == 1)
+                {
+                    address[j] = address[j - 1];
+                    j--;
+                }
+                address[j] = tempAddress;
+            }
             return address;
         }
     }
