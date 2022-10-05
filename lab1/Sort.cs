@@ -59,7 +59,22 @@ namespace lab1
         }
         public static Address[] MinimumElement(Address[] address, MethodInfo method)
         {
-            
+            int min;
+            Address tempAddress;
+
+            for (int i = 0; i < address.Length - 1; i++)
+            {
+                min = i;
+                for (int j = i + 1; j < address.Length; j++)
+                    if (Comparer.DefaultInvariant.Compare(method.Invoke(address[min], null), method.Invoke(address[j], null)) == 1)
+                        min = j;
+                if (min != i)
+                {
+                    tempAddress = address[i];
+                    address[i] = address[min];
+                    address[min] = tempAddress;
+                }
+            }
             return address;
         }
         public static Address[] insert(Address[] address, MethodInfo method)
